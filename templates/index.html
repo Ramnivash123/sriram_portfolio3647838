@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between; /* Logo left, links right */
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #111;
+      border-bottom: 1px solid #444;
+    }
+
+    nav .logo img {
+      height: 100px; /* adjust logo height */
+      width: 200px;  /* adjust logo width */
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav .nav-links a:hover {
+      color: #bbb;
+    }
+
+    /* Mobile adjustments */
+    @media screen and (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .hero p {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 600px;
+      color: #000000;
+      font-size: 1.2rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+    <nav>
+      <div class="logo">
+        <img src="static\ChatGPT Image Sep 30, 2025, 10_44_37 PM.png" alt="Logo">
+      </div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/signup">Sign Up</a>
+        <a href="/signin">Sign In</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+        <!-- Background image grid -->
+        <div class="hero-bg">
+            <img src="static\_BT00239 copy1.jpg" alt="Portrait">
+            <img src="static\_GOW6453.jpg" alt="Landscape">
+            <img src="static\TK Sriram(DOL2)2.3.jpg" alt="Street photography">
+            <img src="static\TK Sriram(S2)2.2.jpg" alt="Architecture">
+        </div>
+
+        <!-- Foreground text -->
+        <p>Welcome to my portfolio, dive into a world where every frame tells a story.</p>
+    </div>
+
+    <script>
+      const images = document.querySelectorAll('.hero-bg img');
+      let direction = 1; // 1 = down, -1 = up
+      let offset = 0;    // current translation value
+      const step = 20;   // pixels per step
+      const maxOffset = 50; // max translation for zig-zag
+
+      setInterval(() => {
+        // Update offset
+        offset += step * direction;
+
+        // Reverse direction if limit reached
+        if (offset > maxOffset || offset < -maxOffset) {
+          direction *= -1;
+        }
+
+        // Apply transform to each image, alternating direction for zig-zag
+        images.forEach((img, index) => {
+          const imgDirection = index % 2 === 0 ? 1 : -1;
+          img.style.transform = `translateY(${offset * imgDirection}px)`;
+          img.style.transition = 'transform 1s ease-in-out';
+        });
+      }, 3000); // every 3 seconds
+    </script>
+
+</body>
+</html>
