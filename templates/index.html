@@ -1,143 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photography Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>T.K.SRIRAM PHOTOGRAPHY</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: "Poppins", Arial, sans-serif;
       background-color: #000;
       color: #fff;
+      overflow-x: hidden;
     }
 
-    nav {
+    /* Header */
+    header {
       display: flex;
-      justify-content: space-between; /* Logo left, links right */
+      justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background: #111;
-      border-bottom: 1px solid #444;
+      padding: 1.2rem 3rem;
+      background-color: rgba(0, 0, 0, 0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+      box-sizing: border-box;
     }
 
-    nav .logo img {
-      height: 100px; /* adjust logo height */
-      width: 200px;  /* adjust logo width */
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #fff;
+      white-space: nowrap;
     }
 
-    nav .nav-links {
+    .nav {
       display: flex;
       gap: 2rem;
+      flex-wrap: nowrap;
+      padding-right: 1rem;
     }
 
-    nav .nav-links a {
-      color: #fff;
+    .nav a {
+      color: #ccc;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 500;
+      font-size: 1rem;
       transition: color 0.3s ease;
+      white-space: nowrap;
     }
 
-    nav .nav-links a:hover {
-      color: #bbb;
+    .nav a:hover {
+      color: #fff;
     }
 
-    /* Mobile adjustments */
-    @media screen and (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      nav .nav-links {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    }
-
-    /* Hero Section */
+    /* Hero section with image grid */
     .hero {
       position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 4rem 2rem;
       overflow: hidden;
+      padding-top: 80px;
     }
 
+    /* Image grid */
     .hero-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 5px;
+      z-index: 0;
     }
 
+    /* Updated Image Grid with Zig-Zag Default Positions */
     .hero-bg img {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 8px;
+      transition: transform 2s ease-in-out;
+      /* Default zig-zag positions */
     }
 
-    .hero p {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 600px;
-      color: #000000;
-      font-size: 1.2rem;
-      line-height: 1.5;
+    .hero-bg img:nth-child(odd) {
+      transform: translateY(-20px); /* Start slightly up */
+      animation: moveUpDown 6s ease-in-out infinite alternate;
     }
+
+    .hero-bg img:nth-child(even) {
+      transform: translateY(20px); /* Start slightly down */
+      animation: moveDownUp 6s ease-in-out infinite alternate;
+    }
+
+    /* Zig-zag animations */
+    @keyframes moveUpDown {
+      0% { transform: translateY(-20px); }
+      50% { transform: translateY(20px); }
+      100% { transform: translateY(-20px); }
+    }
+
+    @keyframes moveDownUp {
+      0% { transform: translateY(20px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(20px); }
+    }
+
+    /* Overlay for text readability */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 1;
+    }
+
+    /* Centered text */
+    .hero p {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      font-size: 1.8rem;
+      max-width: 800px;
+      margin: 0;
+      padding: 1rem 2rem;
+      line-height: 1.6;
+      font-weight: 300;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Fade-in text animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+      }
+      .hero {
+        padding-top: 160px;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        padding: 1rem;
+      }
+
+      /* Keep 2-column grid on mobile */
+      .hero-bg {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr); /* adjust if you have more images */
+        gap: 5px;
+      }
+
+      /* Maintain zig-zag animation for mobile */
+      .hero-bg img:nth-child(odd) {
+        transform: translateY(-20px);
+        animation: moveUpDown 6s ease-in-out infinite alternate;
+      }
+
+      .hero-bg img:nth-child(even) {
+        transform: translateY(20px);
+        animation: moveDownUp 6s ease-in-out infinite alternate;
+      }
+    }
+
   </style>
 </head>
+
 <body>
-    <nav>
-      <div class="logo">
-        <img src="static\ChatGPT Image Sep 30, 2025, 10_44_37 PM.png" alt="Logo">
-      </div>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/signup">Sign Up</a>
-        <a href="/signin">Sign In</a>
-      </div>
-    </nav>
-
-    <div class="hero">
-        <!-- Background image grid -->
-        <div class="hero-bg">
-            <img src="static\_BT00239 copy1.jpg" alt="Portrait">
-            <img src="static\_GOW6453.jpg" alt="Landscape">
-            <img src="static\TK Sriram(DOL2)2.3.jpg" alt="Street photography">
-            <img src="static\TK Sriram(S2)2.2.jpg" alt="Architecture">
-        </div>
-
-        <!-- Foreground text -->
-        <p>Welcome to my portfolio, dive into a world where every frame tells a story.</p>
+  <header>
+    <div class="logo">T.K.SRIRAM PHOTOGRAPHY</div>
+    <div class="nav">
+      <a href="/">Home</a>
+      <a href="/portfolio">Portfolio</a>
     </div>
+  </header>
 
-    <script>
-      const images = document.querySelectorAll('.hero-bg img');
-      let direction = 1; // 1 = down, -1 = up
-      let offset = 0;    // current translation value
-      const step = 20;   // pixels per step
-      const maxOffset = 50; // max translation for zig-zag
-
-      setInterval(() => {
-        // Update offset
-        offset += step * direction;
-
-        // Reverse direction if limit reached
-        if (offset > maxOffset || offset < -maxOffset) {
-          direction *= -1;
-        }
-
-        // Apply transform to each image, alternating direction for zig-zag
-        images.forEach((img, index) => {
-          const imgDirection = index % 2 === 0 ? 1 : -1;
-          img.style.transform = `translateY(${offset * imgDirection}px)`;
-          img.style.transition = 'transform 1s ease-in-out';
-        });
-      }, 3000); // every 3 seconds
-    </script>
-
+  <div class="hero">
+    <div class="hero-bg">
+      <img src="static/_BT00239 copy1.jpg" alt="Portrait">
+      <img src="static/_GOW6453.jpg" alt="Landscape">
+      <img src="static/TK Sriram(DOL2)2.3.jpg" alt="Street Photography">
+      <img src="static/TK Sriram(S2)2.2.jpg" alt="Architecture">
+    </div>
+    <p>Welcome to my portfolio — dive into a world where every frame tells a story.</p>
+  </div>
 </body>
 </html>
